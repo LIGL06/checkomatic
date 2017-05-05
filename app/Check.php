@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace CheckoMatic;
 
 use Illuminate\Database\Eloquent\Model;
 

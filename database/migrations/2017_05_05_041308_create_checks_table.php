@@ -14,10 +14,9 @@ class CreateChecksTable extends Migration
     public function up()
     {
         Schema::create('checks', function (Blueprint $table) {
-            $table->increments('id');
-            //Banco,Folio,Beneficiario,Cantidad,Fecha de Vencimiento
+          //Banco,Folio,Beneficiario,Cantidad,Fecha de Vencimiento
+            $table->increments('folio');  
             $table->string('bank');
-            $table->smallInteger('folio');
             $table->string('recipient');
             $table->decimal('amount',5,2);
             $table->date('validUntil');

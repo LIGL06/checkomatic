@@ -16,6 +16,8 @@ class UsersTableSeeder extends Seeder
            'name' => 'Administrador',
            'email' => 'admin@checkomatic.mx',
            'password' => bcrypt('secret'),
+           'type' => true
         ]);
+        $this->command->info('¡Tabla inicializada con administrador!');
     }
 }
