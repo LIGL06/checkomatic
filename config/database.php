@@ -41,12 +41,12 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'ec2-54-163-254-76.compute-1.amazonaws.com'),
+            'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'dfll0uckpfdhl7'),
-            'username' => env('DB_USERNAME', 'oxbpicplozcgsn'),
-            'password' => env('DB_PASSWORD', '7b5ef99c378dd767ee6ecfd45e3a8e02baee6531cb47d4c114d11a89333721c8'),
-            'uri' => env('DATABASE_URL','postgres://oxbpicplozcgsn:7b5ef99c378dd767ee6ecfd45e3a8e02baee6531cb47d4c114d11a89333721c8@ec2-54-163-254-76.compute-1.amazonaws.com:5432/dfll0uckpfdhl7'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', 'forge'),
+            'uri' => env('DATABASE_URL',''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -58,7 +58,7 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'ec2-54-163-254-76.compute-1.amazonaws.com'),
-            'port' => env('DB_PORT', '3306'),
+            'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'dfll0uckpfdhl7'),
             'username' => env('DB_USERNAME', 'oxbpicplozcgsn'),
             'password' => env('DB_PASSWORD', '7b5ef99c378dd767ee6ecfd45e3a8e02baee6531cb47d4c114d11a89333721c8'),
