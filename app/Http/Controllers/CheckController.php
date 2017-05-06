@@ -5,7 +5,7 @@ namespace CheckoMatic\Http\Controllers;
 use Carbon\Carbon;
 use CheckoMatic\Check;
 use Illuminate\Http\Request;
-use CheckMatic\Http\Requests\StoreCheck;
+use CheckoMatic\Http\Requests\StoreCheck;
 
 
 class CheckController extends Controller
@@ -18,8 +18,12 @@ class CheckController extends Controller
     public function index(Request $request)
     {
         $date = Carbon::now()->addWeek()->toDateString();
-        $checks = Check::where('validUntil',Carbon::now()->toDateString());
-        return view('checks.index')->with('checks',$checks);
+        $checks = Check::where('validUntil','<',$date)->get();
+        $total = 0;
+        foreach ($checks as $key => $value) {
+           $total += $value->amount;
+        }
+        return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
     }
 
     /**
@@ -52,9 +56,69 @@ class CheckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        return $check = Check::where('folio',$id)->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showBy(Request $request, $id)
+    {
+        switch ($id) {
+          case '1':
+            $date = Carbon::now()->addWeek()->toDateString();
+            $checks = Check::where('validUntil','<',$date)->get();
+            $total = 0;
+            foreach ($checks as $key => $value) {
+               $total += $value->amount;
+            }
+            return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
+            break;
+          case '2':
+            $date = Carbon::now()->toDateString();
+            $checks = Check::where('validUntil','=',$date)->get();
+            $total = 0;
+            foreach ($checks as $key => $value) {
+               $total += $value->amount;
+            }
+            return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
+            break;
+          case '3':
+            $date = Carbon::now()->addDay()->toDateString();
+            $checks = Check::where('validUntil','=',$date)->get();
+            $total = 0;
+            foreach ($checks as $key => $value) {
+               $total += $value->amount;
+            }
+            return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
+            break;
+          case '4':
+            $date = Carbon::now()->subWeek()->toDateString();
+            $checks = Check::where('validUntil','>',$date)->where('validUntil','<',Carbon::now()->toDateString())->get();
+            $total = 0;
+            foreach ($checks as $key => $value) {
+               $total += $value->amount;
+            }
+            return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
+            break;
+          case '5':
+            $date = Carbon::now()->addWeek()->toDateString();
+            $checks = Check::where('validUntil','>',Carbon::now())->where('validUntil','<=',$date)->get();
+            $total = 0;
+            foreach ($checks as $key => $value) {
+               $total += $value->amount;
+            }
+            return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
+            break;
+          default:
+            return 'Seleccione una opción del 1 al 5';
+            break;
+        }
     }
 
     /**

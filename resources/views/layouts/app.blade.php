@@ -43,7 +43,11 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                      @if(Auth::user()->isAdmin())
+                      <li>
+                          <a href="{{action('CheckController@create')}}">Crear Cheque</a>
+                      </li>
+                      @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -59,6 +63,11 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                  @if(Auth::user()->isAdmin())
+                                  <li>
+                                      <a href="{{action('CheckController@create')}}">Crear Cheque</a>
+                                  </li>
+                                  @endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

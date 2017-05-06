@@ -12,10 +12,11 @@
 */
 Auth::routes();
 
-Route::get('/', 'HomeContoller@index');
+Route::get('/', 'HomeController@index');
 
 Route::group(['middleware'=>'auth'],function(){
   Route::resource('checks','CheckController');
+  Route::get('/checks/filter/{id}','CheckController@showBy');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

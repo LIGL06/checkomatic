@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect()->action('CheckController@getIndex');
+        return redirect()->action('CheckController@index');
     }
 }

@@ -16,6 +16,7 @@
                           <div class="form-group">
                             <label for="bank">Banco</label>
                             <select class="form-control" name="bank">
+                              <option value="">Seleccinar Banco</option>
                               <option value="BBVA Bancomer">BBVA Bancomer</option>
                               <option value="Banamex">Banamex</option>
                               <option value="Banorte">Banorte</option>
@@ -31,7 +32,7 @@
                             <input type="text" name="recipient" class="form-control">
                           </div>
                           <div class="form-group">
-                            <label for="amount">Beneficiario</label>
+                            <label for="amount">Cantidad</label>
                             <input type="number" step="0.01" name="amount" class="form-control">
                           </div>
                           <div class="form-group">

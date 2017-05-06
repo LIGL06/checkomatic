@@ -3,7 +3,7 @@
 namespace CheckoMatic\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator:
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreCheck extends FormRequest
 {
