@@ -58,7 +58,8 @@ class CheckController extends Controller
      */
     public function show(Request $request, $id)
     {
-        return $check = Check::where('folio',$id)->get();
+        $check = Check::where('folio',$id)->get();
+        return view('checks.show')->with('check',$check);
     }
 
     /**
@@ -129,7 +130,8 @@ class CheckController extends Controller
      */
     public function edit($id)
     {
-        //
+      $check = Check::where('folio',$id)->get();
+      return view('checks.edit')->with('check',$check);
     }
 
     /**
@@ -141,9 +143,11 @@ class CheckController extends Controller
      */
     public function update(StoreCheck $request, $id)
     {
-      $inputs = $request->all();
-      $check = Check::find($id);
-      $check->update($inputs);
+      // return $request;
+      $check = Check::where('folio',$id)->update([
+        'bank' => $request->bank, 'recipient' => $request->recipient,
+        'amount' => $request->amount, 'validUntil' => $request->validUntil
+      ]);
       $request->session()->flash('message','Cheque actualizado');
       return redirect()->action('CheckController@index');
     }
@@ -156,8 +160,7 @@ class CheckController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $check = Check::find($id);
-        $check->delete();
+        $check = Check::where('folio',$id)->delete();
         $request->session()->flash('message','Cheque eliminado');
         return redirect()->action('CheckController@index');
     }

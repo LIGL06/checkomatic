@@ -38,7 +38,7 @@
                       Vencimiento: <b>{{$check->validUntil}}</b>
                       Cantidad: <b>${{ $check->amount }}</b>
                       <br>
-                      <a href="catalog/show/{{$check['id']}}">
+                      <a href="/checks/{{$check['folio']}}">
                         <p style="display:inline-block">
                           Folio: {{ $check->folio }}
                         </h4>

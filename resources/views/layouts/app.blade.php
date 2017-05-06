@@ -43,10 +43,13 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                      @if(Auth::user()->isAdmin())
-                      <li>
-                          <a href="{{action('CheckController@create')}}">Crear Cheque</a>
-                      </li>
+                      @if (Auth::guest())
+                      @else
+                        @if(Auth::user()->isAdmin())
+                        <li>
+                            <a href="{{action('CheckController@create')}}">Crear Cheque</a>
+                        </li>
+                        @endif
                       @endif
                     </ul>
 
