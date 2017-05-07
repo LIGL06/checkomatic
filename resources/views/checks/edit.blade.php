@@ -10,13 +10,12 @@
                     <div class="row">
                       <div class="col-xs-12 col-md-12">
                         {!! Html::ul($errors->all()) !!}
-                        @foreach ($check as $key => $value)
-                        <form action="{{action('CheckController@update', $value->folio )}}" method="POST" style="display:inline">
+                        <form action="{{action('CheckController@update', $check->id )}}" method="POST" style="display:inline">
                           {{ method_field('PUT') }}
                           {{ csrf_field() }}
                           <div class="form-group">
                             <label for="bank">Banco</label>
-                            <select class="form-control" name="bank" value="{{$value->bank}}" required>
+                            <select class="form-control" name="bank" value="{{$check->bank}}" required>
                               <option value="">Seleccinar Banco</option>
                               <option value="BBVA Bancomer">BBVA Bancomer</option>
                               <option value="Banamex">Banamex</option>
@@ -30,21 +29,24 @@
                           </div>
                           <div class="form-group">
                             <label for="recipient">Beneficiario</label>
-                            <input type="text" name="recipient" class="form-control" value="{{$value->recipient}}" required>
+                            <input type="text" name="recipient" class="form-control" value="{{$check->recipient}}" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="folio">Beneficiario</label>
+                            <input type="number" name="folio" class="form-control" value="{{$check->folio}}">
                           </div>
                           <div class="form-group">
                             <label for="amount">Cantidad</label>
-                            <input type="number" step="0.01" name="amount" class="form-control" value="{{$value->amount}}" required>
+                            <input type="number" step="0.01" name="amount" class="form-control" value="{{$check->amount}}" required>
                           </div>
                           <div class="form-group">
                             <label for="validUntil">Fecha de Vencimiento</label>
-                            <input type="date" name="validUntil" class="form-control" value="{{$value->validUntil}}" required>
+                            <input type="date" name="validUntil" class="form-control" value="{{$check->validUntil}}" required>
                           </div>
                           <div class="row col-md-offset-10 col-xs-offset-10">
                             <input type="submit" class="btn btn-success" value="Guardar">
                           </div>
                         </form>
-                        @endforeach
                       </div>
                     </div>
                   </div>

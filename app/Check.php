@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Check extends Model
 {
     protected $fillable = [
-      'bank','recipient','amount','validUntil'
+      'folio','bank','recipient','amount','validUntil'
     ];
 
     protected $table = 'checks';

@@ -19,10 +19,7 @@ class CheckController extends Controller
     {
         $date = Carbon::now()->addWeek()->toDateString();
         $checks = Check::where('validUntil','<',$date)->get();
-        $total = 0;
-        foreach ($checks as $key => $value) {
-           $total += $value->amount;
-        }
+        $total = $checks->sum('amount');
         return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
     }
 
@@ -58,7 +55,7 @@ class CheckController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $check = Check::where('folio',$id)->get();
+        $check = Check::find($id);
         return view('checks.show')->with('check',$check);
     }
 
@@ -74,52 +71,67 @@ class CheckController extends Controller
           case '1':
             $date = Carbon::now()->addWeek()->toDateString();
             $checks = Check::where('validUntil','<',$date)->get();
-            $total = 0;
-            foreach ($checks as $key => $value) {
-               $total += $value->amount;
-            }
+            $total = $checks->sum('amount');
             return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
             break;
           case '2':
             $date = Carbon::now()->toDateString();
             $checks = Check::where('validUntil','=',$date)->get();
-            $total = 0;
-            foreach ($checks as $key => $value) {
-               $total += $value->amount;
-            }
+            $total = $checks->sum('amount');
             return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
             break;
           case '3':
             $date = Carbon::now()->addDay()->toDateString();
             $checks = Check::where('validUntil','=',$date)->get();
-            $total = 0;
-            foreach ($checks as $key => $value) {
-               $total += $value->amount;
-            }
+            $total = $checks->sum('amount');
             return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
             break;
           case '4':
             $date = Carbon::now()->subWeek()->toDateString();
             $checks = Check::where('validUntil','>',$date)->where('validUntil','<',Carbon::now()->toDateString())->get();
-            $total = 0;
-            foreach ($checks as $key => $value) {
-               $total += $value->amount;
-            }
+            $total = $checks->sum('amount');
             return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
             break;
           case '5':
             $date = Carbon::now()->addWeek()->toDateString();
             $checks = Check::where('validUntil','>',Carbon::now())->where('validUntil','<=',$date)->get();
-            $total = 0;
-            foreach ($checks as $key => $value) {
-               $total += $value->amount;
-            }
+            $total = $checks->sum('amount');
             return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',$date);
             break;
           default:
             return 'Seleccione una opción del 1 al 5';
             break;
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showName(Request $request, $id)
+    {
+      switch ($id) {
+        case '1':
+          $checks = Check::orderBy('recipient','asc')->get();
+          $total = $checks->sum('amount');
+          return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',Carbon::now()->toDateString());
+          break;
+        case '2':
+          $checks = Check::orderBy('recipient','desc')->get();
+          $total = $checks->sum('amount');
+          return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',Carbon::now()->toDateString());
+          break;
+        case '3':
+          $checks = Check::where('recipient','LIKE',$request->recipient)->get();
+          $total = $checks->sum('amount');
+          return view('checks.index')->with('checks',$checks)->with('total',$total)->with('date',Carbon::now()->toDateString());
+          break;
+        default:
+          return 'Seleccione una opción del 1 al 5';
+          break;
+      }
     }
 
     /**
@@ -130,7 +142,7 @@ class CheckController extends Controller
      */
     public function edit($id)
     {
-      $check = Check::where('folio',$id)->get();
+      $check = Check::find($id);
       return view('checks.edit')->with('check',$check);
     }
 
@@ -144,7 +156,7 @@ class CheckController extends Controller
     public function update(StoreCheck $request, $id)
     {
       // return $request;
-      $check = Check::where('folio',$id)->update([
+      $check = Check::find($id)->update([
         'bank' => $request->bank, 'recipient' => $request->recipient,
         'amount' => $request->amount, 'validUntil' => $request->validUntil
       ]);
@@ -160,7 +172,7 @@ class CheckController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $check = Check::where('folio',$id)->delete();
+        $check = Check::find($id)->delete();
         $request->session()->flash('message','Cheque eliminado');
         return redirect()->action('CheckController@index');
     }

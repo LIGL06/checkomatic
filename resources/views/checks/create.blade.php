@@ -28,6 +28,10 @@
                             </select>
                           </div>
                           <div class="form-group">
+                            <label for="folio">Folio</label>
+                            <input type="number" name="folio" class="form-control">
+                          </div>
+                          <div class="form-group">
                             <label for="recipient">Beneficiario</label>
                             <input type="text" name="recipient" class="form-control">
                           </div>

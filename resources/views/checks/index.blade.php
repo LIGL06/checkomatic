@@ -7,7 +7,7 @@
         <div class="alert alert-info">{{ Session::get('message') }}</div>
       @endif
       <div class="col-md-10 col-md-offset-1">
-        Filtrar Por:
+        Filtrar por Fecha:
         <div class="row">
           <div class="col-xs-3 col-md-2">
             <a href="{{action('CheckController@showBy','1')}}">Esta semana</a>
@@ -26,6 +26,24 @@
           </div>
         </div>
       </div>
+      <div class="col-md-10 col-md-offset-1">
+        Filtrar por Nombre:
+        <div class="row">
+          <div class="col-xs-3 col-md-2">
+            <a href="{{action('CheckController@showName','1')}}">A-Z</a>
+          </div>
+          <div class="col-xs-3 col-md-2">
+            <a href="{{action('CheckController@showName','2')}}">Z-A</a>
+          </div>
+          <div class="col-xs-3 col-md-3">
+            <div class="row">
+              {{ Form::open(['url' => '/checks/names/3', 'method' => 'GET']) }}
+              {{ Form::text('recipient','Nombre', ['class' => 'form-control']) }}
+              {{ Form::close() }}
+            </div>
+          </div>
+        </div>
+      </div>
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Cheques a vencer antes del <b>{{$date}}</b></div>
@@ -38,7 +56,7 @@
                       Vencimiento: <b>{{$check->validUntil}}</b>
                       Cantidad: <b>${{ $check->amount }}</b>
                       <br>
-                      <a href="/checks/{{$check['folio']}}">
+                      <a href="/checks/{{$check->id}}">
                         <p style="display:inline-block">
                           Folio: {{ $check->folio }}
                         </h4>

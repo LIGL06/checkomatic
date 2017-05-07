@@ -14,9 +14,18 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
+Route::group(['middleware'=>'admin'], function(){
+  Route::get('/checks/create','CheckController@create');
+  Route::get('/checks/{id}/edit','CheckController@edit');
+  Route::post('/checks','CheckController@store');
+  Route::put('/checks/{id}','CheckController@update');
+  Route::delete('/checks/{id}','CheckController@destroy');
+});
 Route::group(['middleware'=>'auth'],function(){
-  Route::resource('checks','CheckController');
+  Route::get('/checks','CheckController@index');
+  Route::get('/checks/{id}','CheckController@show');
   Route::get('/checks/filter/{id}','CheckController@showBy');
+  Route::get('/checks/names/{id}','CheckController@showName');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

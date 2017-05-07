@@ -12,25 +12,25 @@
                         {!! Html::ul($errors->all()) !!}
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                           <h5>
-                            @foreach ($check as $key => $value)
-                              Folio: <b>{{$value->folio}}</b><br>
-                              Banco: <b>{{$value->bank}}</b><br>
-                              Beneficiario: <b>{{$value->recipient}}</b><br>
-                              Monto: $<b>{{$value->amount}}</b><br>
-                              @if (Auth::user()->isAdmin())
-                                <form action="{{action('CheckController@edit',$value->folio)}}" method="GET">
-                                  {{ method_field('GET') }}
-                                  {{ csrf_field() }}
-                                  <input type="submit" class="btn btn-warning" value="Editar">
-                                </form>
-                                <form action="{{action('CheckController@destroy',$value->folio)}}" method="POST">
-                                  {{ method_field('DELETE') }}
-                                  {{ csrf_field() }}
-                                  <input type="submit" class="btn btn-danger" value="Borrar">
-                                </form>
-                              @endif
-                            @endforeach
+                              Folio: <b>{{$check->folio}}</b><br>
+                              Banco: <b>{{$check->bank}}</b><br>
+                              Beneficiario: <b>{{$check->recipient}}</b><br>
+                              Monto: $<b>{{$check->amount}}</b><br>
                           </h5>
+                          @if (Auth::user()->isAdmin())
+                            <div class="col-xs-6 col-md-6">
+                              <form action="{{action('CheckController@edit',$check->id)}}" method="GET">
+                                <input type="submit" class="btn btn-warning" value="Editar">
+                              </form>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                              <form action="{{action('CheckController@destroy',$check->id)}}" method="POST">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <input type="submit" class="btn btn-danger" value="Borrar">
+                              </form>
+                            </div>
+                          @endif
                         </div>
                       </div>
                     </div>

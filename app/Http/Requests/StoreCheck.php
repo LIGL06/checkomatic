@@ -26,6 +26,7 @@ class StoreCheck extends FormRequest
     {
         return [
             'bank' => 'bail|required',
+            'folio' => 'required',
             'recipient' => 'required',
             'amount' => 'required',
             'validUntil' => 'required',
@@ -39,7 +40,8 @@ class StoreCheck extends FormRequest
     public function messages()
     {
         return [
-            'bank.required' => 'Nombre del banco requerido',
+            'bank.required' => 'Banco requerido',
+            'folio.required' => 'Folio requerido',
             'recipient.required'  => 'Beneficiaro requerido',
             'amount.required' => 'Cantidad requerida',
             'validUntil.required' => 'Fecha de vencimiento requerida',
